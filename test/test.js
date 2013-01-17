@@ -12,7 +12,8 @@ var options = {
     compression: true,
     memory: 1024,
     pages: 10,
-    outputdpi: 0
+    outputdpi: 0,
+    graphicresizemethod: 1
 
 };
 

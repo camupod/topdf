@@ -158,6 +158,17 @@ void initializeOptions (Handle<Object> source, topdf_options* destination) {
 
     }
 
+    // resize method
+    if (source->Has(String::New("graphicresizemethod"))) {
+
+        destination->graphicresizemethod = source->Get(String::New("graphicresizemethod"))->Int32Value();
+
+    } else {
+
+        destination->graphicresizemethod = SCCGRAPHIC_SMOOTHSIZING;
+
+    }
+
 }
 
 void setOptions (VTHDOC documentHandle, topdf_options* options) {
@@ -244,6 +255,24 @@ void setOptions (VTHDOC documentHandle, topdf_options* options) {
         DASetOption(documentHandle, SCCOPT_PRINTENDPAGE, &options->pages, sizeof(VTDWORD));
 
     }
+
+
+    // default graphics resizing setting
+    VTDWORD graphicresizemethod = SCCGRAPHIC_SMOOTHSIZING;
+
+    // optional graphics resizing methods
+    if (options->graphicresizemethod == SCCGRAPHIC_QUICKSIZING) {
+
+        graphicresizemethod = SCCGRAPHIC_QUICKSIZING;
+
+    } else if (options->graphicresizemethod == SCCGRAPHIC_SMOOTHGRAYSCALESIZING) {
+
+        graphicresizemethod = SCCGRAPHIC_SMOOTHGRAYSCALESIZING;
+
+    }
+
+    // set memory usage setting
+    DASetOption(documentHandle, SCCOPT_GRAPHIC_SIZEMETHOD, &graphicresizemethod, sizeof(VTDWORD));
 
 }
 
