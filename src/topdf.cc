@@ -204,7 +204,8 @@ void setOptions (VTHDOC documentHandle, topdf_options* options) {
     if (options->outputdpi > 0) {
         DASetOption(documentHandle, SCCOPT_GRAPHIC_OUTPUTDPI, &options->outputdpi, sizeof(VTDWORD));
     } else {
-        DASetOption(documentHandle, SCCOPT_GRAPHIC_OUTPUTDPI, SCCGRAPHIC_MAINTAIN_IMAGE_DPI, sizeof(VTDWORD));
+        VTDWORD outputdpi = SCCGRAPHIC_MAINTAIN_IMAGE_DPI;
+        DASetOption(documentHandle, SCCOPT_GRAPHIC_OUTPUTDPI, &outputdpi, sizeof(VTDWORD));
     }
 
     // default memory usage setting
