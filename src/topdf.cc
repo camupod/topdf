@@ -147,6 +147,17 @@ void initializeOptions (Handle<Object> source, topdf_options* destination) {
 
     }
 
+    // output dpi
+    if (source->Has(String::New("outputdpi"))) {
+
+        destination->outputdpi = source->Get(String::New("outputdpi"))->Int32Value();
+
+    } else {
+
+        destination->outputdpi = SCCGRAPHIC_DEFAULT_OUTPUT_DPI;
+
+    }
+
 }
 
 void setOptions (VTHDOC documentHandle, topdf_options* options) {
@@ -188,6 +199,13 @@ void setOptions (VTHDOC documentHandle, topdf_options* options) {
 
     // set compression setting
     DASetOption(documentHandle, SCCOPT_APPLYFILTER, &options->compression, sizeof(VTBOOL));
+
+    // set output dpi setting
+    if (options->outputdpi > 0) {
+        DASetOption(documentHandle, SCCOPT_GRAPHIC_OUTPUTDPI, &options->outputdpi, sizeof(VTDWORD));
+    } else {
+        DASetOption(documentHandle, SCCOPT_GRAPHIC_OUTPUTDPI, SCCGRAPHIC_MAINTAIN_IMAGE_DPI, sizeof(VTDWORD));
+    }
 
     // default memory usage setting
     VTDWORD memory = SCCDOCUMENTMEMORYMODE_SMALL;

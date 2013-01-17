@@ -13,6 +13,7 @@ struct topdf_options {
     int headings;
     int gridlines;
     int compression;
+    int outputdpi;
     char* watermark;
     char* fontdirectory;
 

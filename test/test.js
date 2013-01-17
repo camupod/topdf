@@ -5,12 +5,14 @@ var topdf = require('../lib/topdf'),
 // set some options
 var options = {
 
+    fontdirectory: '/usr/share/fonts/truetype',
     headings: true,
     override: true,
     gridlines: true,
     compression: true,
     memory: 1024,
-    pages: 10
+    pages: 10,
+    outputdpi: 0
 
 };
 
